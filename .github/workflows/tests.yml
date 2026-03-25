@@ -17,12 +17,8 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Debug requirements
+      - name: Abhängigkeiten installieren
         run: |
-          echo "=== Inhalt der requirements.txt ==="
-          ls -la
-          cat requirements.txt
-          echo "=== Ende ==="
           pip install -r requirements.txt
 
       - name: Tests ausführen
