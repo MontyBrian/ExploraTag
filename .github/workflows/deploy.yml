@@ -1,4 +1,4 @@
-name: Deploy to S3
+name: Deploy Frontend to S3
 
 on:
   push:
@@ -10,21 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Code holen
+      - name: Repository klonen
         uses: actions/checkout@v4
 
       - name: Node installieren
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20   # passt zu deinem Projekt
 
-      - name: Abhängigkeiten installieren
-        run: npm install
+      - name: Dependencies installieren
+        run: |
+          cd frontend
+          npm install
 
-      - name: Build erstellen
-        run: npm run build
+      - name: Build erstellen (Vite)
+        run: |
+          cd frontend
+          npm run build
 
-      - name: Zu S3 deployen
+      - name: Deploy zu S3
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
           args: --delete
@@ -33,4 +37,4 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SOURCE_DIR: "dist"
+          SOURCE_DIR: "frontend/dist"
