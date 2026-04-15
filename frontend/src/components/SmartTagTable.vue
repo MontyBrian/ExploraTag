@@ -2,8 +2,7 @@
 </script>
 
 <template>
-  <div class="col-12 col-md-6">
-    <h3 class="display-6">Hallo, Test!</h3> <br/>
+  <div class="col-12 ">
     <div class="card">
       <div class="card-header">
         Geräte
