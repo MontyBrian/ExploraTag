@@ -58,6 +58,10 @@ void connectWiFi()
 void mqttConnect()
 {
     while (!mqtt.connected()) {
+        if (WiFi.status() != WL_CONNECTED){
+            connectWiFi();
+        }
+
         Serial.print("Connecting MQTT...");
 
         if (mqtt.connect("ESP32_Client")) {
@@ -84,7 +88,9 @@ void setup()
 // ================= LOOP =================
 void loop()
 {
-    if (!mqtt.connected()) mqttConnect();
+    if (!mqtt.connected()){ 
+        mqttConnect();
+    }
     mqtt.loop();
 
     if (millis() - lastSend > 15000)
