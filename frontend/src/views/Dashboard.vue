@@ -11,7 +11,10 @@
   methods: {
   toggleSidebar() {
   this.isOpen = !this.isOpen
-}
+},
+  toggleUserbutton(){
+
+  }
 }
 }
 </script>
@@ -27,8 +30,19 @@
       <div class="content">
         <SmartTagTable/>
       </div>
-      <div class="footer">
-        Hallo, Test!
+      <div class="d-flex p-3 footer">
+        <button class="userbutton btn btn-secondary w-100" @click="toggleUserbutton">
+          Hallo, Test!
+        </button>
+        <div class="dropdown">
+
+        </div>
+        <div class="w-100 align-content-center text-center">
+          <router-link to="/impressum">
+            Impressum
+          </router-link>
+        </div>
+
       </div>
     </div>
 
@@ -70,7 +84,5 @@
 }
 .footer {
   position: relative;
-  left: 10px;
-  bottom: 10px;
 }
 </style>
