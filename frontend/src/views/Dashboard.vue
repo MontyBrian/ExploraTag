@@ -5,15 +5,16 @@
     components: {SmartTagTable, SmarttagManagement: SmartTagTable},
   data() {
   return {
-  isOpen: true
+    isSidebarOpen: true,
+    isUsermenuOpen: false
 }
 },
   methods: {
   toggleSidebar() {
-  this.isOpen = !this.isOpen
+  this.isSidebarOpen = !this.isSidebarOpen
 },
   toggleUserbutton(){
-
+    this.isUsermenuOpen =!this.isUsermenuOpen
   }
 }
 }
@@ -26,16 +27,26 @@
       <i class="bi bi-list"></i>
     </button>
 
-    <div class="sidebar" :class="{ closed: !isOpen }">
+    <div class="sidebar" :class="{ closed: !isSidebarOpen }">
       <div class="content">
         <SmartTagTable/>
       </div>
       <div class="d-flex p-3 footer">
-        <button class="userbutton btn btn-secondary w-100" @click="toggleUserbutton">
-          Hallo, Test!
-        </button>
-        <div class="dropdown">
-
+        <div class="dropdownmenu">
+          <button class="userbutton btn btn-secondary dropdown-toggle" @click="toggleUserbutton">
+            Hallo, Test!
+          </button>
+          <div v-show="isUsermenuOpen">
+            <div class="userdropdown dropdown-menu show">
+              <div class="dropdown-item">
+                Einstellungen
+              </div>
+              <div class="dropdown-divider"/>
+              <div class="dropdown-item">
+                Abmelden
+              </div>
+            </div>
+          </div>
         </div>
         <div class="w-100 align-content-center text-center">
           <router-link to="/impressum">
@@ -84,5 +95,17 @@
 }
 .footer {
   position: relative;
+}
+.userdropdown{
+  position:absolute;
+  bottom: 75%;
+  left:5%;
+}
+.userbutton{
+  width:125px;
+}
+.dropdown-menu {
+  min-width: 0;
+  width:125px;
 }
 </style>
