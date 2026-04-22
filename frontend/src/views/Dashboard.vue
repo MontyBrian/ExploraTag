@@ -1,5 +1,28 @@
 <script>
   import SmartTagTable from "@/components/SmartTagTable.vue";
+  import {ref, onMounted} from "vue";
+  import {userManager,signOutRedirect} from "../services/auth.js";
+  import {useRouter} from "vue-router";
+
+  const router = useRouter();
+  const email = ref("");
+  const isLogged = ref(false);
+  const loaded = ref(false);
+
+  onMounted(async () => {
+    const user = await userManager.getUser();
+    console.log("loaded user:", user);
+
+    if (user && !user.expired) {
+      email.value = user.profile?.email || user.username || "Unbekannt";
+      isLogged.value = true;
+    } else {
+      router.replace("/login");
+    }
+
+    loaded.value = true;
+  });
+
 
   export default {
     components: {SmartTagTable, SmarttagManagement: SmartTagTable},
@@ -15,7 +38,11 @@
 },
   toggleUserbutton(){
     this.isUsermenuOpen =!this.isUsermenuOpen
-  }
+  },
+    goToLogin() {
+      this.isUsermenuOpen = false
+      this.$router.push('/login')
+    }
 }
 }
 </script>
@@ -42,8 +69,8 @@
                 Einstellungen
               </div>
               <div class="dropdown-divider"/>
-              <div class="dropdown-item">
-                Abmelden
+              <div class="dropdown-item" @click="goToLogin">
+                Anmelden
               </div>
             </div>
           </div>
