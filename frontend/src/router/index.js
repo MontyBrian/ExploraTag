@@ -1,19 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { userManager } from "../services/auth.js";
 
 import Dashboard from '../views/Dashboard.vue'
 import Impressum from '../views/Impressum.vue'
 import LoginView from "../components/LoginView.vue";
-import CallbackView from "../components/CallbackView.vue";
+import ProfileView from "../components/ProfileView.vue";
 
 const routes = [
     {
         path: '/',
-        name: 'Dashboard',
+        name: 'dashboard',
         component: Dashboard
     },
     {
         path: '/impressum',
-        name: 'Impressum',
+        name: 'impressum',
         component: Impressum
     },
     {
@@ -22,15 +23,30 @@ const routes = [
         component: LoginView
     },
     {
-        path: "/callback",
-        name: "callback",
-        component: CallbackView
+        path: "/profile",
+        name: "profile",
+        component: ProfileView,
+        meta: { requiresAuth: true }
     },
-]
+];
 
 const router = createRouter({
     history: createWebHistory(),
     routes
-})
-export default router;
+});
 
+router.beforeEach(async (to) => {
+    if (!to.meta.requiresAuth) {
+        return true;
+    }
+
+    const user = await userManager.getUser();
+
+    if (user && !user.expired) {
+        return true;
+    }
+
+    return "/";
+});
+
+export default router;
