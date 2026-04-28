@@ -25,8 +25,8 @@ export async function signOutRedirect() {
     await userManager.removeUser();
 
     const clientId = "42rca2tfql4jgpglb3puegmecl";
-    const logoutUri = "http://localhost:5173/";
-    //const logoutUri = "https://d1pzkvnujvtw1y.cloudfront.net/";
+    //const logoutUri = "http://localhost:5173/";
+    const logoutUri = "https://d1pzkvnujvtw1y.cloudfront.net/";
     const cognitoDomain = "https://eu-central-1twrza0itr.auth.eu-central-1.amazoncognito.com";
 
     window.location.href =
