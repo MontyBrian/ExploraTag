@@ -6,6 +6,9 @@
           <h1>Mein Profil</h1>
           <p>Hier kannst du deine persönlichen Daten ansehen und bearbeiten.</p>
         </div>
+        <button class="btn btn-primary" @click="goBackToHome">
+          Startseite
+        </button>
         <button v-if="!editMode" class="btn btn-primary" @click="startEdit">
           Daten bearbeiten
         </button>
@@ -63,12 +66,18 @@
 <script setup>
 import { onMounted, reactive, ref } from "vue";
 import { userManager } from "../services/auth.js";
+import { useRouter } from "vue-router";
 
 const loading = ref(true);
 const saving = ref(false);
 const editMode = ref(false);
 const errorMessage = ref("");
 const successMessage = ref("");
+const router = useRouter();
+
+const goBackToHome = () => {
+  router.push("/");
+};
 
 const profile = ref({});
 

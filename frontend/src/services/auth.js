@@ -10,7 +10,7 @@ export const userManager = new UserManager({
     //post_logout_redirect_uri: "http://localhost:5173/",
     post_logout_redirect_uri: "https://d1pzkvnujvtw1y.cloudfront.net/",
     response_type: "code",
-    scope: "openid email ",
+    scope: "openid email profile aws.cognito.signin.user.admin",
     userStore: new WebStorageStateStore({ store: window.localStorage }),
     loadUserInfo: false,
     metadata: {
@@ -25,8 +25,8 @@ export async function signOutRedirect() {
     await userManager.removeUser();
 
     const clientId = "42rca2tfql4jgpglb3puegmecl";
-    //const logoutUri = "http://localhost:5173/";
-    const logoutUri = "https://d1pzkvnujvtw1y.cloudfront.net/";
+    const logoutUri = "http://localhost:5173/";
+    //const logoutUri = "https://d1pzkvnujvtw1y.cloudfront.net/";
     const cognitoDomain = "https://eu-central-1twrza0itr.auth.eu-central-1.amazoncognito.com";
 
     window.location.href =
