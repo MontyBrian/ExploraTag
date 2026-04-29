@@ -19,7 +19,7 @@
     <p>Niklas Brose 30077<br />
       Dustin Leiste 29710<br />
       Robert Lehmann 29696<br />
-      Pascal Waligorski 11111<br />
+      Pascal Waligorski 31028<br />
       <br />
       Hochschule Harz<br />
       Friedrichstraße 57-59<br />
